@@ -20,7 +20,7 @@ namespace ProfileServices.Controllers
             _logger = logger;
         }
         
-        [Route("/Get3DSDFStringFromSmiles")]
+        [Route("/GetImageFromSmiles")]
         [HttpGet]
         public async Task<IActionResult> GetImageFromSmiles(String smiles, int width, int height)
         {
