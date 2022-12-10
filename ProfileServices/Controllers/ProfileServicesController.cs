@@ -19,8 +19,9 @@ namespace ProfileServices.Controllers
         {
             _logger = logger;
         }
-
-        [HttpGet(Name = "GetImageFromSmiles")]
+        
+        [Route("/Get3DSDFStringFromSmiles")]
+        [HttpGet]
         public async Task<IActionResult> GetImageFromSmiles(String smiles, int width, int height)
         {
             var mol = RWMol.MolFromSmiles(smiles);
