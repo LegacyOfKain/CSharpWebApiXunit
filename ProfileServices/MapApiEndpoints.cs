@@ -8,6 +8,7 @@ namespace ProfileServices
         {
             routes.MapGet("/GetImageFromSmiles", GetImageFromSmiles).WithTags("ChemServices");
             routes.MapPost("/GetSmilesFromMolString", GetSmilesFromMolString).WithTags("ChemServices");
+            routes.MapPost("/GetImageFromMolString", GetImageFromMolString).WithTags("ChemServices");
 
             return routes;
         }
@@ -29,12 +30,28 @@ namespace ProfileServices
             var mol = RWMol.MolFromMolBlock(request.molFileString);           
             return Results.Content(mol.MolToSmiles(true,true), "text/plain");
         }
+
+        public static IResult GetImageFromMolString(PostRequest2 request)
+        {
+            Console.WriteLine(request.molFileString);
+            var mol = RWMol.MolFromMolBlock(request.molFileString);
+            var drawer = new MolDraw2DCairo(request.width, request.height);
+            drawer.drawOptions().addAtomIndices = true;
+            drawer.drawOptions().maxFontSize = 10;
+            drawer.drawMolecule(mol);
+            return Results.File(drawer.getImage().ToArray(), "image/png");
+        }
     }
 
     public class PostRequest
     {
         public String molFileString { get; set; }
-        //public int width { get; set; }
-        //public int height { get; set; }
+    }
+
+    public class PostRequest2
+    {
+        public String molFileString { get; set; }
+        public int width { get; set; }
+        public int height { get; set; }
     }
 }

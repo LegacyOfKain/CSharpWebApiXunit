@@ -45,5 +45,22 @@ namespace ProfileServicesXUnit
             Assert.Equal(smilesBenzene, content.ResponseContent);
 
         }
+
+        [Fact]
+        public void GetImageFromMolString_ReturnsPNG()
+        {
+            PostRequest2 postreq = new PostRequest2();
+            postreq.molFileString = molFileStringBenzene;
+            postreq.width = width; postreq.height = height;
+            var result = ProfileServicesApi.GetImageFromMolString(postreq);
+
+            //Assert
+            _testOutputHelper.WriteLine("Return type " + result.GetType());
+            Assert.IsType<FileContentHttpResult>(result);
+
+            FileContentHttpResult file = (FileContentHttpResult)result;
+            Assert.Equal("image/png", file.ContentType);
+
+        }
     }
 }
