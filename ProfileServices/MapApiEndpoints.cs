@@ -16,11 +16,7 @@ namespace ProfileServices
         public static IResult GetImageFromSmiles(String smiles, int width, int height)
         {
             var mol = RWMol.MolFromSmiles(smiles);
-            var drawer = new MolDraw2DCairo(width, height);
-            drawer.drawOptions().addAtomIndices = true;
-            drawer.drawOptions().maxFontSize = 10;
-            drawer.drawMolecule(mol);
-            drawer.finishDrawing();
+            var drawer = getDrawer(mol, width, height);
             return Results.File(drawer.getImage().ToArray(), "image/png");
         }
 
@@ -35,11 +31,17 @@ namespace ProfileServices
         {
             Console.WriteLine(request.molFileString);
             var mol = RWMol.MolFromMolBlock(request.molFileString);
-            var drawer = new MolDraw2DCairo(request.width, request.height);
-            drawer.drawOptions().addAtomIndices = true;
+            var drawer = getDrawer(mol,request.width,request.height);
+            return Results.File(drawer.getImage().ToArray(), "image/png");
+        }
+
+        public static MolDraw2DCairo getDrawer(RWMol mol, int width, int height)
+        {
+            var drawer = new MolDraw2DCairo(width, height);
             drawer.drawOptions().maxFontSize = 10;
             drawer.drawMolecule(mol);
-            return Results.File(drawer.getImage().ToArray(), "image/png");
+            drawer.finishDrawing();
+            return drawer;
         }
     }
 
