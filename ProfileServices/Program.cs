@@ -11,7 +11,7 @@ var app = builder.Build();
 
 // Routing should be after PathBase
 app.UsePathBase("/chemservices");
-app.UseRouting();
+app.UseRouting();  // Add explicitly
 
 app.UseSwagger();
 app.UseSwaggerUI();
