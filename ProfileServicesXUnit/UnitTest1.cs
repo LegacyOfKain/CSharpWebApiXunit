@@ -69,7 +69,7 @@ namespace ProfileServicesXUnit
         }
 
         [Fact]
-        public async Task Test_GetImageFromSmiles_Endpoint()
+        public async Task GetImageFromSmiles_TestEndpoint_From_Webapp()
         {
             await using var application = new WebApplicationFactory<Program>();
             using var client = application.CreateClient();
