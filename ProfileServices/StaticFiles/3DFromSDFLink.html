@@ -1,0 +1,41 @@
+﻿<html>
+<head>
+    <script src="http://3Dmol.csb.pitt.edu/build/3Dmol-min.js" "></script>
+
+
+
+    <style>
+        .mol-container {
+            width: 60%;
+            height: 400px;
+            position: relative;
+        }
+    </style>
+
+    <script>
+$(function() {
+  let element = $('#container-01');
+  let config = { backgroundColor: 'orange' };
+  let viewer = $3Dmol.createViewer( element, config );
+  //let pdbUri = 'https://3dmol.csb.pitt.edu/doc-data/1ycr.pdb';
+  let sdfUri = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/241/record/SDF/?record_type=3d&response_type=save&response_basename=Conformer3D_CID_241';
+  sdfUri = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/10972/record/SDF/?record_type=3d&response_type=save&response_basename=Conformer3D_CID_10972';
+  jQuery.ajax( sdfUri, {
+    success: function(data) {
+      let v = viewer;
+ v.addModel(data, "sdf");
+                  v.setStyle({stick:{}});
+                  v.zoomTo();
+                  v.render();                               /* slight zoom */
+    },
+    error: function(hdr, status, err) {
+      console.error( "Failed to load PDB " + pdbUri + ": " + err );
+    },
+  });
+});
+    </script>
+</head>
+<body>
+    <div id="container-01" class="mol-container"></div>
+</body>
+</html>
