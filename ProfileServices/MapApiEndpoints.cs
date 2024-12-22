@@ -147,12 +147,12 @@ namespace ProfileServices
 
     public class PostRqMolBlockOnly
     {
-        public String molBlock { get; set; }
+        public required string molBlock { get; set; }
     }
 
     public class PostRq
     {
-        public string molBlock { get; set; }
+        public required string molBlock { get; set; }
         public int width { get; set; }
         public int height { get; set; }
     }

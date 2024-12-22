@@ -37,8 +37,10 @@ namespace ProfileServicesXUnit
         [Fact]
         public void GetSmilesFromMolString_ReturnsSmiles()
         {
-            PostRequest postreq = new PostRequest();
-            postreq.molFileString = molFileStringBenzene;
+            PostRqMolBlockOnly postreq = new PostRqMolBlockOnly
+            {
+                molBlock = molFileStringBenzene
+            };
             var result = ProfileServicesApi.GetSmilesFromMolString(postreq);
 
             //Assert
@@ -54,9 +56,12 @@ namespace ProfileServicesXUnit
         [Fact]
         public void GetImageFromMolString_ReturnsPNG()
         {
-            PostRequest2 postreq = new PostRequest2();
-            postreq.molFileString = molFileStringBenzene;
-            postreq.width = width; postreq.height = height;
+            PostRq postreq = new PostRq
+            {
+                molBlock = molFileStringBenzene,
+                width = width,
+                height = height
+            };
             var result = ProfileServicesApi.GetImageFromMolString(postreq);
 
             //Assert
