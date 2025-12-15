@@ -1,7 +1,6 @@
 using Microsoft.Extensions.FileProviders;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using ProfileServices;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
